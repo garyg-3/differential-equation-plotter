@@ -7,14 +7,59 @@
 	<script type="text/javascript" src="Canvas.js" defer></script>
 	<script type="text/javascript" src="ODEPlotter.js" defer></script>
 	<script type="text/javascript" src="Particle.js" defer></script>
-	<script type="text/javascript" src="main.js" defer></script>
+	<script type="text/javascript" src="Menu.js" defer></script>
+	<!-- <script type="text/javascript" src="main.js" defer></script> -->
 </head>
 <body>
 
 	<canvas id="canvas"></canvas>
-	<div class="menu">
-		<div class="menu__open"></div>
-		<div class="menu__options"></div>
+	<div id="menu__open" class="menu__open">
+		<h2 id="menu__open-icon" class="menu__open-icon">V</h2>
+	</div>
+	<div id="menu" class="menu">
+		<h2 class="menu__title">Configuration</h2>
+		<div id="menu__close" class="menu__close">x</div>
+		<hr>
+		<div class="menu__options">
+			<div class="ode-equation">
+				<div class="ode-equation__diff">
+					<p>dy</p>
+					<hr>
+					<p>dx</p>
+				</div>
+				<div class="ode-equation__equals">
+					<br>
+					<p>&nbsp;=&nbsp;</p>
+					<br>
+				</div>
+				<div class="ode-equation__expression">
+					<input class="ode-equation__input" type="number" name="coefficientA" value="1"><p>x +</p>
+					<input class="ode-equation__input" type="number" name="coefficientB" value="0"><p>y</p>
+					<hr>
+					<input class="ode-equation__input" type="number" name="coefficientC" value="0"><p>x +</p>
+					<input class="ode-equation__input" type="number" name="coefficientD" value="-1"><p>y</p>
+				</div>
+			</div>
+
+			<div class="ode-control__particle-settings">
+				<h3 class="ode-control__particle">Particles</h3>
+				<label for="settings-particle-quantity">Quantity</label>
+				<input type="range" name="particleQuantity" id="settings-particle-quantity" min="10" max="10000" value="100" step="50">
+				<br>
+				<label for="settings-particle-size">Size</label>
+				<input type="range" name="particleSize" id="settings-particle-size" min="1" max="10" value="2">
+				<br>
+				<label for="settings-particle-trail">Trail</label>
+				<input type="range" name="particleTrail" id="settings-particle-trail" min="0.01" max="1" step="0.01" value="0.1">
+			</div>
+
+			<div class="ode-control">
+				<button id="buttonRun" class="ode-control__run">Run</button>
+				<button id="buttonStop" class="ode-control__stop">Stop</button>
+				<button id="buttonReset" class="ode-control__reset">Reset</button>
+				<button id="buttonRandomise" class="ode-control__randomise">Randomise</button>
+			</div>
+		</div>
 	</div>
 
 </body>

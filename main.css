@@ -2,6 +2,68 @@ html, body {
 	margin: 0;
 }
 
+p {
+	display: inline;
+	font-size: 2rem;
+}
+
 #canvas {
 	display: block;
+}
+
+.menu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(255, 255, 255, 0.75);
+	margin: 10px;
+	border-radius: 10px;
+	display: none;
+}
+
+.menu__title {
+	text-align: center;
+	font-size: 2rem;
+}
+
+.menu__open {
+	display: flex;
+	position: absolute;
+	font-size: 2rem;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, 0.5);
+	height: 70px;
+	width: 70px;
+	border-radius: 50px;
+	justify-content: center;
+	text-align: center;
+}
+
+.menu__open-icon {
+	flex: 1;
+	font-size: 2rem;
+}
+
+.menu__close {
+	position: absolute;
+	font-size: 2rem;
+	top: 5px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.ode-equation {
+	display: flex;
+	margin: 20px;
+}
+
+.ode-equation__input {
+	width: 30px;
+}
+
+.ode-control {
+	text-align: center;
+	margin-bottom: 20px;
 }

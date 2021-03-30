@@ -1,10 +1,18 @@
 const ODEPlotter = (function(){
 
-    let equationCoefficients = [-1, 1, -1, 0];
+    let equationCoefficients = [1, 0, 0, -1];
     let animationSpeed = 10;
     let intervalID = null;
     let timeScale = 200;
-    const particles = [];
+    let particles = [];
+    let maxDisplacement = 1000;
+
+    const randomiseParticle = (particle) => {
+        const x = (Math.random() - 0.5) * width;
+        const y = (Math.random() - 0.5) * height;
+        particle.x = x;
+        particle.y = y;
+    }
 
     const updateParticle = (particle) => {
         // Ordinary differential equations (ODE) of form:
@@ -19,6 +27,9 @@ const ODEPlotter = (function(){
 
         particle.y += dy / timeScale;
         particle.x += dx / timeScale;
+        if (particle.displacement() > maxDisplacement) {
+            randomiseParticle(particle)
+        }
         particle.draw();
     }
 
@@ -32,23 +43,44 @@ const ODEPlotter = (function(){
         setEquationCoefficients: function(newCoefficients) {
             equationCoefficients = newCoefficients;
         },
+
         getEquationCoefficients: function() {
             return equationCoefficients;
         },
-        addParticle: function(particle) {
-            particles.push(particle);
+
+        addParticle: function(newParticle) {
+            particles.push(newParticle);
         },
-        addParticles: function(particles) {
-            particles.forEach(particle => this.addParticle(particle));
+
+        addParticles: function(newParticles) {
+            newParticles.forEach(particle => this.addParticle(particle));
         },
+
+        clearParticles: function() {
+            particles = [];
+        },
+
         getParticles: function() {
             return particles;
         },
-        run: function() {
-            intervalID = setInterval(updateParticles, animationSpeed);
+
+        setMaxDisplacement: function(displacement) {
+            maxDisplacement = displacement;
         },
+
+        getMaxDisplacement: function() {
+            return maxDisplacement;
+        },
+
+        run: function() {
+            if (!intervalID) {
+                intervalID = setInterval(updateParticles, animationSpeed);
+            }
+        },
+
         stop: function() {
             clearInterval(intervalID);
+            intervalID = null;
         }
     }
 })();
