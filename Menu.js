@@ -35,6 +35,7 @@ const Menu = (() => {
     const particleTrailInput = document.getElementById("settings-particle-trail");
     const particleQuantityInput = document.getElementById("settings-particle-quantity");
     const defaultParticleSize = 2;
+    const defaultTrail = 0.1;
 
     particleSizeInput.onchange = function() {
         const particles = ODEPlotter.getParticles();
@@ -42,12 +43,30 @@ const Menu = (() => {
     }
 
     particleTrailInput.onchange = function() {
-        tranparency = this.value;
+        transparency = this.value;
     }
 
-    // particleQuantityInput.onchange = function() {
+    particleQuantityInput.onchange = function() {
+        // Check number of particles
+        const particles = ODEPlotter.getParticles();
+        const numberOfParticles = particles.length;
+        const newQuantity = Number(this.value);
 
-    // }
+        if (newQuantity < numberOfParticles) {
+            const truncatedParticles = particles.slice(0, newQuantity - 1);
+            ODEPlotter.clearParticles();
+            ODEPlotter.addParticles(truncatedParticles);
+        } else {
+            const difference = newQuantity - numberOfParticles;
+            ODEPlotter.addParticles(
+                generateRandomParticles(
+                    difference,
+                    Math.max(width, height),
+                    Number(particleSizeInput.value)
+                )
+            );
+        }
+    }
 
 
     // Control Buttons
@@ -71,6 +90,7 @@ const Menu = (() => {
 
     resetButton.onclick = function () {
         resetCanvas();
+        particleTrailInput.value = transparency = 0.1;
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
             generateRandomParticles(
@@ -92,7 +112,7 @@ const Menu = (() => {
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
             generateRandomParticles(
-                1000,
+                Number(particleQuantityInput.value),
                 Math.max(width, height),
                 Number(particleSizeInput.value)
             )
