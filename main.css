@@ -1,5 +1,6 @@
 html, body {
 	margin: 0;
+	background-color: black;
 }
 
 p {
@@ -9,6 +10,9 @@ p {
 
 #canvas {
 	display: block;
+	width: 100vw;
+	height: 100vh;
+	background-color: black;
 }
 
 .menu {

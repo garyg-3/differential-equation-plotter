@@ -1,4 +1,4 @@
-function Particle(x, y, radius) {
+function Particle(x, y, radius, context) {
 	this.x = x;
 	this.y = y;
 	this.radius = radius;

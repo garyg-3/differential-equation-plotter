@@ -30,15 +30,15 @@ const ODEPlotter = (function(){
         particle.x += dx / timeScale;
         const distanceToParticle = particle.displacement();
         if (distanceToParticle > maxDisplacement) {
-            randomiseParticle(particle, Math.max(width, height));
+            randomiseParticle(particle, canvas.getMaxDimension());
         } else if (distanceToParticle < minDisplacement) {
-            randomiseParticle(particle, Math.max(width, height) * 2);
+            randomiseParticle(particle, canvas.getMaxDimension());
         }
         particle.draw();
     }
 
     const updateParticles = () => {
-        clearCanvas();
+        canvas.clear();
         particles.forEach(particle => updateParticle(particle));
     }
 

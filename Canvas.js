@@ -1,21 +1,48 @@
-var canvas = document.getElementById('canvas');
-var context = canvas.getContext("2d");
-var width = canvas.width = window.innerWidth;
-var height = canvas.height = window.innerHeight;
-let transparency = 0.1;
-context.fillStyle = 'black';
-context.fillRect(0, 0, width, height);
-context.translate(
-    Math.floor(width/2),
-    Math.floor(height/2)
-);
+class Canvas {
 
-function clearCanvas() {
-    context.fillStyle = `rgba(0, 0, 0, ${transparency})`; // Creates trajectory motion blur
-    context.fillRect(-width, -height, 2 * width, 2 * height);
+    constructor(canvasID) {
+        this.element = document.getElementById(canvasID);
+        this.context = this.element.getContext("2d");
+        this.transparency = 0.1;
+        this.resize();
+        this.resizeObserver = new ResizeObserver(this.resize.bind(this)).observe(this.element);
+        this.setupPosition();
+    }
+
+    resize() {
+        const { width, height } = this.element.getBoundingClientRect();
+        this.width = this.element.width = width;
+        this.height = this.element.height = height;
+        this.setupPosition();
+    }
+
+    getDimensions() {
+        return {
+            width: this.width,
+            height: this.height
+        };
+    }
+
+    getMaxDimension() {
+        return Math.max(this.height, this.width);
+    }
+
+    setupPosition() {
+        this.context.translate(
+            Math.floor(this.width/2),
+            Math.floor(this.height/2)
+        );
+    }
+
+    clear() {
+        this.context.fillStyle = `rgba(0, 0, 0, ${this.transparency})`; // Creates trajectory motion blur
+        this.context.fillRect(-this.width, -this.height, 2 * this.width, 2 * this.height);
+    }
+
+    reset() {
+        this.context.fillStyle = "black";
+        this.context.fillRect(-this.width, -this.height, 2 * this.width, 2 * this.height);
+    }
 }
 
-function resetCanvas() {
-    context.fillStyle = "black"; // Creates trajectory motion blur
-    context.fillRect(-width, -height, 2 * width, 2 * height);
-}
+const canvas = new Canvas("canvas");

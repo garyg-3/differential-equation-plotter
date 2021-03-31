@@ -44,7 +44,7 @@ const Menu = (() => {
     }
 
     particleTrailInput.onchange = function() {
-        transparency = 1 - Number(this.value);
+        canvas.transparency = 1 - Number(this.value);
     }
 
     particleQuantityInput.onchange = function() {
@@ -62,7 +62,7 @@ const Menu = (() => {
             ODEPlotter.addParticles(
                 generateRandomParticles(
                     difference,
-                    Math.max(width, height),
+                    canvas.getMaxDimension(),
                     Number(particleSizeInput.value)
                 )
             );
@@ -77,7 +77,7 @@ const Menu = (() => {
             const x = Math.floor((Math.random() - 0.5) * radius) * 1;
             const y = Math.floor((Math.random() - 0.5) * radius) * 1;
 
-            particles.push(new Particle(x, y, size));
+            particles.push(new Particle(x, y, size, canvas.context));
         }
         return particles;
     }
@@ -90,13 +90,13 @@ const Menu = (() => {
     }
 
     resetButton.onclick = function () {
-        resetCanvas();
-        particleTrailInput.value = transparency = 0.1;
+        canvas.reset();
+        particleTrailInput.value = canvas.transparency = 0.1;
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
             generateRandomParticles(
                 defaultParticleQuantity,
-                Math.max(width, height),
+                canvas.getMaxDimension(),
                 defaultParticleSize
             )
         );
@@ -113,12 +113,12 @@ const Menu = (() => {
     }
 
     randomiseButton.onclick = function() {
-        resetCanvas();
+        canvas.reset();
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
             generateRandomParticles(
                 Number(particleQuantityInput.value),
-                Math.max(width, height),
+                canvas.getMaxDimension(),
                 Number(particleSizeInput.value)
             )
         );
