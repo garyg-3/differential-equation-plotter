@@ -35,8 +35,4 @@ To alter the coefficients from a script, use
 DEPlotter.setEquationCoefficients([a, b, c, d]); // Where a,b,c,d are the 4 corresponding coefficients in the equation
 ```
 
-<<<<<<< Updated upstream
 The menu is dependent on elements hardcoded in the main.html file, and so will not work out-of-the-box on other projects. This will be to come in the near future!
-=======
-The menu is dependent on elements hardcoded in the main.html file, and so will not work out-of-the-box on other projects. This will be to come in the near future!
->>>>>>> Stashed changes
