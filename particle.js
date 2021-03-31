@@ -17,3 +17,13 @@ function Particle(x, y, radius, context) {
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	}
 }
+
+Particle.getRandom = function(quantity, radius, size) {
+	const particles = [];
+	for (let i = 0; i < quantity; i++) {
+		const x = Math.floor((Math.random() - 0.5) * radius);
+		const y = Math.floor((Math.random() - 0.5) * radius);
+		particles.push(new Particle(x, y, size, canvas.context));
+	}
+	return particles;
+}

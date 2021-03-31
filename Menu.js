@@ -60,7 +60,7 @@ const Menu = (() => {
         } else {
             const difference = newQuantity - numberOfParticles;
             ODEPlotter.addParticles(
-                generateRandomParticles(
+                Particle.getRandom(
                     difference,
                     canvas.getMaxDimension(),
                     Number(particleSizeInput.value)
@@ -69,18 +69,9 @@ const Menu = (() => {
         }
     }
 
-
-    // Control Buttons
-    const generateRandomParticles = (quantity, radius, size) => {
-        const particles = [];
-        for (let i = 0; i < quantity; i++) {
-            const x = Math.floor((Math.random() - 0.5) * radius) * 1;
-            const y = Math.floor((Math.random() - 0.5) * radius) * 1;
-
-            particles.push(new Particle(x, y, size, canvas.context));
-        }
-        return particles;
-    }
+    ////////////////////////////////////////
+    // Contorl buttons
+    ////////////////////////////////////////
     runButton.onclick = function () {
         ODEPlotter.run();
     }
@@ -94,7 +85,7 @@ const Menu = (() => {
         particleTrailInput.value = canvas.transparency = 0.1;
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
-            generateRandomParticles(
+            Particle.getRandom(
                 defaultParticleQuantity,
                 canvas.getMaxDimension(),
                 defaultParticleSize
@@ -116,7 +107,7 @@ const Menu = (() => {
         canvas.reset();
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
-            generateRandomParticles(
+            Particle.getRandom(
                 Number(particleQuantityInput.value),
                 canvas.getMaxDimension(),
                 Number(particleSizeInput.value)
