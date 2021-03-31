@@ -59,9 +59,6 @@ const Menu = (() => {
         );
         ODEPlotter.run();
     }
-    randomiseButton.onclick();
-
-
 
     ////////////////////////////////////////
     // Particle settings

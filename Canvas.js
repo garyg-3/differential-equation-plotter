@@ -48,5 +48,3 @@ class Canvas {
         this.context.fillRect(-this.width, -this.height, 2 * this.width, 2 * this.height);
     }
 }
-
-const canvas = new Canvas("canvas");
