@@ -1,4 +1,4 @@
-const ODEPlotter = (function(){
+const DEPlotter = (function(){
 
     let equationCoefficients = [1, 0, 0, -1];
     let animationSpeed = 10;

@@ -25,9 +25,9 @@ const Menu = (() => {
     const coefficientInputs = [...document.querySelectorAll('[name^="coefficient"]')];
     coefficientInputs.forEach((coeff, index) => {
         coeff.onchange = function () {
-            const coefficients = ODEPlotter.getEquationCoefficients();
+            const coefficients = DEPlotter.getEquationCoefficients();
             coefficients[index] = Number(coeff.value);
-            ODEPlotter.setEquationCoefficients(coefficients);
+            DEPlotter.setEquationCoefficients(coefficients);
         }
     });
 
@@ -42,22 +42,22 @@ const Menu = (() => {
             const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
             coefficients[i] = coefficientInputs[i].value = randomCoefficient;
         }
-        ODEPlotter.setEquationCoefficients(coefficients);
+        DEPlotter.setEquationCoefficients(coefficients);
     }
 
     randomiseButton.onclick = function() {
         canvas.reset();
         setRandomCoefficients(2);
         coefficientInputs[0].onchange(); // Not being called when changing the parameters in JS
-        ODEPlotter.clearParticles();
-        ODEPlotter.addParticles(
+        DEPlotter.clearParticles();
+        DEPlotter.addParticles(
             Particle.getRandom(
                 Number(particleQuantityInput.value),
                 canvas.getMaxDimension(),
                 Number(particleSizeInput.value)
             )
         );
-        ODEPlotter.run();
+        DEPlotter.run();
     }
 
     ////////////////////////////////////////
@@ -68,7 +68,7 @@ const Menu = (() => {
     const defaultParticleTrail = 0.9;
 
     particleSizeInput.onchange = function() {
-        const particles = ODEPlotter.getParticles();
+        const particles = DEPlotter.getParticles();
         for(let particle of particles) particle.radius = this.value;
     }
 
@@ -78,17 +78,17 @@ const Menu = (() => {
 
     particleQuantityInput.onchange = function() {
         // Check number of particles
-        const particles = ODEPlotter.getParticles();
+        const particles = DEPlotter.getParticles();
         const numberOfParticles = particles.length;
         const newQuantity = Number(this.value);
 
         if (newQuantity < numberOfParticles) {
             const truncatedParticles = particles.slice(0, newQuantity - 1);
-            ODEPlotter.clearParticles();
-            ODEPlotter.addParticles(truncatedParticles);
+            DEPlotter.clearParticles();
+            DEPlotter.addParticles(truncatedParticles);
         } else {
             const difference = newQuantity - numberOfParticles;
-            ODEPlotter.addParticles(
+            DEPlotter.addParticles(
                 Particle.getRandom(
                     difference,
                     canvas.getMaxDimension(),
@@ -102,18 +102,18 @@ const Menu = (() => {
     // Contorl buttons
     ////////////////////////////////////////
     runButton.onclick = function () {
-        ODEPlotter.run();
+        DEPlotter.run();
     }
 
     stopButton.onclick = function () {
-        ODEPlotter.stop();
+        DEPlotter.stop();
     }
 
     resetButton.onclick = function () {
         canvas.reset();
         particleTrailInput.value = canvas.transparency = 0.1;
-        ODEPlotter.clearParticles();
-        ODEPlotter.addParticles(
+        DEPlotter.clearParticles();
+        DEPlotter.addParticles(
             Particle.getRandom(
                 defaultParticleQuantity,
                 canvas.getMaxDimension(),
@@ -124,8 +124,8 @@ const Menu = (() => {
         defaultCoefficients.forEach((coeff, index) => {
             coefficientInputs[index].value = coeff;
         });
-        ODEPlotter.setEquationCoefficients(defaultCoefficients);
-        ODEPlotter.run();
+        DEPlotter.setEquationCoefficients(defaultCoefficients);
+        DEPlotter.run();
 
         particleSizeInput.value = defaultParticleSize;
         particleQuantityInput.value = defaultParticleQuantity;
