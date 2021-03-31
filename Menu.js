@@ -35,7 +35,8 @@ const Menu = (() => {
     const particleTrailInput = document.getElementById("settings-particle-trail");
     const particleQuantityInput = document.getElementById("settings-particle-quantity");
     const defaultParticleSize = 2;
-    const defaultTrail = 0.1;
+    const defaultParticleQuantity = 100;
+    const defaultParticleTrail = 0.9;
 
     particleSizeInput.onchange = function() {
         const particles = ODEPlotter.getParticles();
@@ -43,7 +44,7 @@ const Menu = (() => {
     }
 
     particleTrailInput.onchange = function() {
-        transparency = this.value;
+        transparency = 1 - Number(this.value);
     }
 
     particleQuantityInput.onchange = function() {
@@ -94,7 +95,7 @@ const Menu = (() => {
         ODEPlotter.clearParticles();
         ODEPlotter.addParticles(
             generateRandomParticles(
-                1000,
+                defaultParticleQuantity,
                 Math.max(width, height),
                 defaultParticleSize
             )
@@ -105,6 +106,10 @@ const Menu = (() => {
         });
         ODEPlotter.setEquationCoefficients(defaultCoefficients);
         ODEPlotter.run();
+
+        particleSizeInput.value = defaultParticleSize;
+        particleQuantityInput.value = defaultParticleQuantity;
+        particleTrailInput.value = defaultParticleTrail;
     }
 
     randomiseButton.onclick = function() {

@@ -6,10 +6,11 @@ const ODEPlotter = (function(){
     let timeScale = 200;
     let particles = [];
     let maxDisplacement = 1000;
+    let minDisplacement = 2;
 
-    const randomiseParticle = (particle) => {
-        const x = (Math.random() - 0.5) * width;
-        const y = (Math.random() - 0.5) * height;
+    const randomiseParticle = (particle, range) => {
+        const x = (Math.random() - 0.5) * range;
+        const y = (Math.random() - 0.5) * range;
         particle.x = x;
         particle.y = y;
     }
@@ -27,8 +28,11 @@ const ODEPlotter = (function(){
 
         particle.y += dy / timeScale;
         particle.x += dx / timeScale;
-        if (particle.displacement() > maxDisplacement) {
-            randomiseParticle(particle)
+        const distanceToParticle = particle.displacement();
+        if (distanceToParticle > maxDisplacement) {
+            randomiseParticle(particle, Math.max(width, height));
+        } else if (distanceToParticle < minDisplacement) {
+            randomiseParticle(particle, Math.max(width, height) * 2);
         }
         particle.draw();
     }
