@@ -2,6 +2,10 @@ class Canvas {
 
     constructor(canvasID) {
         this.element = document.getElementById(canvasID);
+        if (!this.element) {
+            throw new Error(`Could not get HTML canvas element with id ${canvasID}`);
+        }
+
         this.context = this.element.getContext("2d");
         this.transparency = 0.1;
         this.resize();
