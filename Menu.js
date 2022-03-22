@@ -14,7 +14,7 @@ const Menu = (() => {
     };
 
     closeMenuButton.onclick = function () {
-        openMenuButton.style.display = "block";
+        openMenuButton.style.display = "grid";
         menuElement.style.display = "none";
     }
 
