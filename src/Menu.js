@@ -1,6 +1,6 @@
 import RecordButton from "./RecordButton.js";
 
-const Menu = (() => {
+export default function getMenu(canvas) {
 
     const menuElement = document.getElementById("menu");
     const openMenuButton = document.getElementById("menu__open");
@@ -136,6 +136,4 @@ const Menu = (() => {
         particleQuantityInput.value = defaultParticleQuantity;
         particleTrailInput.value = defaultParticleTrail;
     }
-})();
-
-export default Menu;
+};
