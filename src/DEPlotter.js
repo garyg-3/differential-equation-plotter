@@ -7,6 +7,8 @@ const DEPlotter = (function(){
     let particles = [];
     let maxDisplacement = 1000;
     let minDisplacement = 2;
+    let canvas = null;
+    let context = null;
 
     const randomiseParticle = (particle, range) => {
         const x = (Math.random() - 0.5) * range;
@@ -34,7 +36,7 @@ const DEPlotter = (function(){
         } else if (distanceToParticle < minDisplacement) {
             randomiseParticle(particle, canvas.getMaxDimension());
         }
-        particle.draw();
+        particle.draw(context);
     }
 
     const updateParticles = () => {
@@ -42,8 +44,15 @@ const DEPlotter = (function(){
         particles.forEach(particle => updateParticle(particle));
     }
 
+    const setCanvas = (newCanvas) => {
+        canvas = newCanvas;
+        context = newCanvas.context;
+    }
+
 
     return {
+        setCanvas,
+
         setEquationCoefficients: function(newCoefficients) {
             equationCoefficients = newCoefficients;
         },
@@ -88,3 +97,5 @@ const DEPlotter = (function(){
         }
     }
 })();
+
+export default DEPlotter;

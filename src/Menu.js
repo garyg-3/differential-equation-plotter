@@ -1,8 +1,13 @@
+import RecordButton from "./RecordButton.js";
+
 const Menu = (() => {
 
     const menuElement = document.getElementById("menu");
     const openMenuButton = document.getElementById("menu__open");
     const closeMenuButton = document.getElementById("menu__close");
+    const recordButton = new RecordButton(
+        document.getElementById('buttonCapture')
+    );
 
     const runButton = document.getElementById("buttonRun");
     const resetButton = document.getElementById("buttonReset");
@@ -132,3 +137,5 @@ const Menu = (() => {
         particleTrailInput.value = defaultParticleTrail;
     }
 })();
+
+export default Menu;

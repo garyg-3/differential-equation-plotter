@@ -7,11 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<link rel="stylesheet" type="text/css" href="menu.css">
 	<link rel="stylesheet" type="text/css" href="button.css">
-	<script type="text/javascript" src="Particle.js" defer></script>
-	<script type="text/javascript" src="Canvas.js" defer></script>
-	<script type="text/javascript" src="DEPlotter.js" defer></script>
-	<script type="text/javascript" src="Menu.js" defer></script>
-	<script type="text/javascript" src="main.js" defer></script>
+	<script src="main.js" type="module" defer></script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,7 +93,11 @@
 				<button id="buttonReset" class="button">Reset</button>
 			</div>
 			<div class="controls__buttons-wrapper">
-				<button id="buttonCapture" class="button button--capture">Record</button>
+
+				
+				<button id="buttonCapture" class="button button--capture">
+					<span class="button__icon--not-recording"></span> Record
+				</button>
 			</div>
 		</div>
 	</div>
