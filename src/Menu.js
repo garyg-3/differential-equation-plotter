@@ -1,47 +1,39 @@
-import RecordButton from "./RecordButton.js";
+import RecordButton from './RecordButton.js';
+import DEPlotter from './DEPlotter.js';
+import Particle from './Particle.js';
 
-export default function getMenu(canvas) {
+class Menu {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.menuElement = document.getElementById("menu");
+        this.openMenuButton = document.getElementById("menu__open");
+        this.closeMenuButton = document.getElementById("menu__close");
+        this.recordButton = new RecordButton(
+            document.getElementById('buttonCapture')
+        );
 
-    const menuElement = document.getElementById("menu");
-    const openMenuButton = document.getElementById("menu__open");
-    const closeMenuButton = document.getElementById("menu__close");
-    const recordButton = new RecordButton(
-        document.getElementById('buttonCapture')
-    );
+        this.runButton = document.getElementById("buttonRun");
+        this.resetButton = document.getElementById("buttonReset");
+        this.stopButton = document.getElementById("buttonStop");
+        this.coefficientInputs = [...document.querySelectorAll('[name^="coefficient"]')];
+        this.particleQuantityInput = document.getElementById("settings-particle-quantity");
+        this.particleSizeInput = document.getElementById("settings-particle-size");
+        this.particleTrailInput = document.getElementById("settings-particle-trail");
+        this.randomiseButton = document.getElementById("buttonRandomise");
+        this.defaultParticleSize = 2;
+        this.defaultParticleQuantity = 100;
+        this.defaultParticleTrail = 0.9;
 
-    const runButton = document.getElementById("buttonRun");
-    const resetButton = document.getElementById("buttonReset");
-    const stopButton = document.getElementById("buttonStop");
-
-    openMenuButton.onclick = function () {
-        openMenuButton.style.display = "none";
-        menuElement.style.display = "block";
-    };
-
-    closeMenuButton.onclick = function () {
-        openMenuButton.style.display = "grid";
-        menuElement.style.display = "none";
+        this.registerEventListeners();
     }
 
+    setCoefficientInputValues(coefficients) {
+        this.coefficientInputs.forEach((input, index) => {
+            input.value = coefficients[index];
+        });
+    }
 
-    ////////////////////////////////////////
-    // Differential equation
-    ////////////////////////////////////////
-    const coefficientInputs = [...document.querySelectorAll('[name^="coefficient"]')];
-    coefficientInputs.forEach((coeff, index) => {
-        coeff.onchange = function () {
-            const coefficients = DEPlotter.getEquationCoefficients();
-            coefficients[index] = Number(coeff.value);
-            DEPlotter.setEquationCoefficients(coefficients);
-        }
-    });
-
-    const particleSizeInput = document.getElementById("settings-particle-size");
-    const particleTrailInput = document.getElementById("settings-particle-trail");
-    const particleQuantityInput = document.getElementById("settings-particle-quantity");
-    const randomiseButton = document.getElementById("buttonRandomise");
-
-    const setRandomCoefficients = (range) => {
+    setRandomCoefficients(range) {
         const coefficients = Array(4).fill(0);
         for (let i = 0; i < coefficients.length; i++) {
             const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
@@ -50,90 +42,105 @@ export default function getMenu(canvas) {
         DEPlotter.setEquationCoefficients(coefficients);
     }
 
-    randomiseButton.onclick = function() {
-        canvas.reset();
-        setRandomCoefficients(2);
-        coefficientInputs[0].onchange(); // Not being called when changing the parameters in JS
-        DEPlotter.clearParticles();
-        DEPlotter.addParticles(
-            Particle.getRandom(
-                Number(particleQuantityInput.value),
-                canvas.getMaxDimension(),
-                Number(particleSizeInput.value)
-            )
-        );
-        DEPlotter.run();
-    }
+    registerEventListeners() {
+        this.openMenuButton.onclick = () => {
+            this.openMenuButton.style.display = "none";
+            this.menuElement.style.display = "block";
+        };
+    
+        this.closeMenuButton.onclick = () => {
+            this.openMenuButton.style.display = "grid";
+            this.menuElement.style.display = "none";
+        } 
 
-    ////////////////////////////////////////
-    // Particle settings
-    ////////////////////////////////////////
-    const defaultParticleSize = 2;
-    const defaultParticleQuantity = 100;
-    const defaultParticleTrail = 0.9;
+        this.coefficientInputs.forEach((coeff, index) => {
+            coeff.onchange = () => {
+                const coefficients = DEPlotter.getEquationCoefficients();
+                coefficients[index] = Number(coeff.value);
+                DEPlotter.setEquationCoefficients(coefficients);
+            }
+        });
 
-    particleSizeInput.onchange = function() {
-        const particles = DEPlotter.getParticles();
-        for(let particle of particles) particle.radius = this.value;
-    }
-
-    particleTrailInput.onchange = function() {
-        canvas.transparency = 1 - Number(this.value);
-    }
-
-    particleQuantityInput.onchange = function() {
-        // Check number of particles
-        const particles = DEPlotter.getParticles();
-        const numberOfParticles = particles.length;
-        const newQuantity = Number(this.value);
-
-        if (newQuantity < numberOfParticles) {
-            const truncatedParticles = particles.slice(0, newQuantity - 1);
+        this.randomiseButton.onclick = () => {
+            this.canvas.reset();
+            const coefficients = DEPlotter.setRandomCoefficients(2);
+            this.setCoefficientInputValues(coefficients);
+            // this.coefficientInputs[0].onchange(); // Not being called when changing the parameters in JS
             DEPlotter.clearParticles();
-            DEPlotter.addParticles(truncatedParticles);
-        } else {
-            const difference = newQuantity - numberOfParticles;
             DEPlotter.addParticles(
                 Particle.getRandom(
-                    difference,
-                    canvas.getMaxDimension(),
-                    Number(particleSizeInput.value)
+                    Number(this.particleQuantityInput.value),
+                    this.canvas.getMaxDimension(),
+                    Number(this.particleSizeInput.value)
                 )
             );
+            DEPlotter.run();
+        }
+
+        this.particleSizeInput.onchange = (event) => {
+            const particles = DEPlotter.getParticles();
+            for(let particle of particles) particle.radius = event.target.value;
+        }
+    
+        this.particleTrailInput.onchange = (event) => {
+            this.canvas.transparency = 1 - Number(event.target.value);
+        }
+    
+        this.particleQuantityInput.onchange = (event) => {
+            // Check number of particles
+            const particles = DEPlotter.getParticles();
+            const numberOfParticles = particles.length;
+            const newQuantity = Number(event.target.value);
+    
+            if (newQuantity < numberOfParticles) {
+                const truncatedParticles = particles.slice(0, newQuantity - 1);
+                DEPlotter.clearParticles();
+                DEPlotter.addParticles(truncatedParticles);
+            } else {
+                const difference = newQuantity - numberOfParticles;
+                DEPlotter.addParticles(
+                    Particle.getRandom(
+                        difference,
+                        this.canvas.getMaxDimension(),
+                        Number(this.particleSizeInput.value)
+                    )
+                );
+            }
+
+            console.log(DEPlotter.getParticles());
+        }
+
+        this.runButton.onclick = () => {
+            DEPlotter.run();
+        }
+    
+        this.stopButton.onclick = () => {
+            DEPlotter.stop();
+        }
+    
+        this.resetButton.onclick = () => {
+            this.canvas.reset();
+            this.particleTrailInput.value = this.canvas.transparency = 0.1;
+            DEPlotter.clearParticles();
+            DEPlotter.addParticles(
+                Particle.getRandom(
+                    this.defaultParticleQuantity,
+                    this.canvas.getMaxDimension(),
+                    this.defaultParticleSize
+                )
+            );
+            const defaultCoefficients = [1, 0, 0, -1];
+            defaultCoefficients.forEach((coeff, index) => {
+                this.coefficientInputs[index].value = coeff;
+            });
+            DEPlotter.setEquationCoefficients(defaultCoefficients);
+            DEPlotter.run();
+    
+            this.particleSizeInput.value = this.defaultParticleSize;
+            this.particleQuantityInput.value = this.defaultParticleQuantity;
+            this.particleTrailInput.value = this.defaultParticleTrail;
         }
     }
+}
 
-    ////////////////////////////////////////
-    // Contorl buttons
-    ////////////////////////////////////////
-    runButton.onclick = function () {
-        DEPlotter.run();
-    }
-
-    stopButton.onclick = function () {
-        DEPlotter.stop();
-    }
-
-    resetButton.onclick = function () {
-        canvas.reset();
-        particleTrailInput.value = canvas.transparency = 0.1;
-        DEPlotter.clearParticles();
-        DEPlotter.addParticles(
-            Particle.getRandom(
-                defaultParticleQuantity,
-                canvas.getMaxDimension(),
-                defaultParticleSize
-            )
-        );
-        const defaultCoefficients = [1, 0, 0, -1];
-        defaultCoefficients.forEach((coeff, index) => {
-            coefficientInputs[index].value = coeff;
-        });
-        DEPlotter.setEquationCoefficients(defaultCoefficients);
-        DEPlotter.run();
-
-        particleSizeInput.value = defaultParticleSize;
-        particleQuantityInput.value = defaultParticleQuantity;
-        particleTrailInput.value = defaultParticleTrail;
-    }
-};
+export default Menu;

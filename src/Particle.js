@@ -18,11 +18,22 @@ function Particle(x, y, radius) {
 	}
 }
 
+Particle.getUniformRandomPositionInCircle = function(radius) {
+	const r = Math.random() * radius;
+	const theta = Math.random() * 2 * Math.PI;
+
+	// Use trig to convert to cartesian
+	const x = r * Math.cos(theta);
+	const y = r * Math.sin(theta);
+	return [x, y];
+}
+
 Particle.getRandom = function(quantity, radius, size) {
+	// Generate in circle
+	// Random x then restrict y
 	const particles = [];
 	for (let i = 0; i < quantity; i++) {
-		const x = Math.floor((Math.random() - 0.5) * radius);
-		const y = Math.floor((Math.random() - 0.5) * radius);
+		const [x, y] = Particle.getUniformRandomPositionInCircle(radius);
 		particles.push(new Particle(x, y, size));
 	}
 	return particles;

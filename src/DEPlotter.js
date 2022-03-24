@@ -49,13 +49,27 @@ const DEPlotter = (function(){
         context = newCanvas.context;
     }
 
+    const setEquationCoefficients = (newCoefficients) => {
+        equationCoefficients = newCoefficients;
+    }
+
+    const setRandomCoefficients = (range) => {
+        const coefficients = Array(4).fill(0);
+        for (let i = 0; i < coefficients.length; i++) {
+            const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
+            coefficients[i] = randomCoefficient;
+        }
+        setEquationCoefficients(coefficients);
+        return coefficients;
+    }
+
 
     return {
         setCanvas,
 
-        setEquationCoefficients: function(newCoefficients) {
-            equationCoefficients = newCoefficients;
-        },
+        setEquationCoefficients,
+
+        setRandomCoefficients,
 
         getEquationCoefficients: function() {
             return equationCoefficients;
