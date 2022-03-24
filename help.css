@@ -1,0 +1,37 @@
+.help__open {
+    display: grid;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 2rem;
+    font-weight: 800;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    place-items: center;
+    transition: transform .2s ease-out;
+}
+
+.help__open:hover {
+    transform: scale(1.1);
+}
+
+.help {
+    max-width: 50%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 10px;
+    border-radius: 10px;
+    padding: 30px;
+    transition: all 1s;
+}
+
+.help__text {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
