@@ -1,0 +1,62 @@
+.equation {
+    position: absolute;
+    bottom: 0;
+	display: flex;
+	margin: 20px;
+    align-items: center;
+    color: white;
+}
+
+.equation__input {
+	width: 30px;
+}
+
+.equation__equals {
+    margin: 0 10px;
+}
+
+.equation__expression {
+    display: flex;
+    align-items: center;
+}
+
+.equation__text {
+    margin: 0;
+}
+
+.equation__button-wrapper {
+    text-align: center;
+}
+
+.equation__coefficient {
+    position: relative;
+}
+
+.equation__coefficient::after,
+.equation__coefficient::before {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 0;
+    cursor: pointer;
+    transition: all .4s;
+    opacity: 0;
+}
+
+.equation__coefficient:hover::after,
+.equation__coefficient:hover::before {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+}
+
+.equation__coefficient::before {
+    content: "+";
+    bottom: 100%;
+}
+
+.equation__coefficient::after {
+    content: "-";
+    top: 100%;
+}
