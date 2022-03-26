@@ -28,35 +28,42 @@
     text-align: center;
 }
 
-.equation__coefficient {
+.equation__coefficient-wrapper {
     position: relative;
 }
 
-.equation__coefficient::after,
-.equation__coefficient::before {
+.equation__coefficient {
+    
+}
+
+.equation__coefficient-inc,
+.equation__coefficient-dec {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-    font-weight: bold;
+    transform: translateX(-80%);
+    font-style: normal;
     line-height: 0;
+    font-size: 1.1rem;
+    opacity: 0;
     cursor: pointer;
     transition: all .4s;
-    opacity: 0;
 }
 
-.equation__coefficient:hover::after,
-.equation__coefficient:hover::before {
-    transform: translateX(-50%) scale(1.1);
-    opacity: 1;
+.equation__coefficient-inc:hover,
+.equation__coefficient-dec:hover {
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
-.equation__coefficient::before {
-    content: "+";
+.equation__coefficient-inc {
     bottom: 100%;
 }
 
-.equation__coefficient::after {
-    content: "-";
+.equation__coefficient-dec {
     top: 100%;
+}
+
+.equation__coefficient:hover > .equation__coefficient-inc,
+.equation__coefficient:hover > .equation__coefficient-dec {
+    opacity: 1;
 }
