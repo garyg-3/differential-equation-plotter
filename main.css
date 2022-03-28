@@ -2,6 +2,7 @@ html, body {
 	margin: 0;
 	background-color: black;
 	font-family: 'M PLUS Rounded 1c', sans-serif;
+	overflow: hidden;
 }
 
 p {

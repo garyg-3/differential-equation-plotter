@@ -1,0 +1,61 @@
+.config__open {
+    display: grid;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 2rem;
+    font-weight: 800;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    place-items: center;
+    transition: transform .2s ease-out;
+}
+
+.config__open:hover {
+    transform: scale(1.1);
+}
+
+.config {
+    max-width: 50%;
+    box-sizing: border-box;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 10px;
+    border-radius: 10px;
+    padding: 30px;
+    /* animation: fadeInFromTopLeft 1s; */
+}
+
+.config__text {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.config-menu__close {
+    position: absolute;
+    font-size: 2rem;
+    top: 10px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-color: black;
+    border-radius: 50%;
+    transition: transform .3s;
+}
+
+.config-menu__close:hover {
+    transform: scale(1.1);
+}
+
+.config-menu__close-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

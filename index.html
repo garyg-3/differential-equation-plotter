@@ -21,17 +21,18 @@
 
 	<canvas id="canvas"></canvas>
 
-	<div id="menu__open" class="menu__open">
+	<div id="config-menu-open" class="menu__open">
 		<svg class="menu__open-svg" version="1.1" width="50%" height="50%" xmlns="http://www.w3.org/2000/svg">
 			<line x1="10%" y1="10%" x2="90%" y2="10%" stroke-width="4" stroke="black" stroke-linecap="round" />
 			<line x1="10%" y1="50%" x2="90%" y2="50%" stroke-width="4" stroke="black" stroke-linecap="round" />
 			<line x1="10%" y1="90%" x2="90%" y2="90%" stroke-width="4" stroke="black" stroke-linecap="round" />
 		</svg>
 	</div>
-	<div id="menu" class="menu">
+
+	<div id="config-menu" class="menu">
 		<h2 class="menu__title">Configuration</h2>
 
-		<div id="menu__close" class="menu__close">
+		<div id="config-menu-close" class="menu__close">
 			<svg class="menu__close-svg" version="1.1" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
 				<line x1="30%" y1="30%" x2="70%" y2="70%" stroke-width="5" stroke="white" stroke-linecap="round" />
 				<line x1="30%" y1="70%" x2="70%" y2="30%" stroke-width="5" stroke="white" stroke-linecap="round" />
@@ -40,31 +41,6 @@
 
 		<hr>
 		<div class="menu__options">
-			<div class="ode-equation">
-				<div class="ode-equation__diff">
-					<p>dy</p>
-					<hr>
-					<p>dx</p>
-				</div>
-				<div class="ode-equation__equals">
-					<p>=</p>
-				</div>
-				<div class="ode-equation__expressions">
-					<div class="ode-equation__expression">
-						<input class="ode-equation__input" type="number" name="coefficientA" value="1">
-						<p class="ode-equation__text">x +</p>
-						<input class="ode-equation__input" type="number" name="coefficientB" value="0">
-						<p class="ode-equation__text">y</p>
-					</div>
-					<hr>
-					<div class="ode-equation__expression">
-						<input class="ode-equation__input" type="number" name="coefficientC" value="0">
-						<p class="ode-equation__text">x +</p>
-						<input class="ode-equation__input" type="number" name="coefficientD" value="-1">
-						<p class="ode-equation__text">y</p>
-					</div>
-				</div>
-			</div>
 
 			<div class="ode-equation__button-wrapper">
 				<button class="button" id="buttonRandomise" class="ode-control__randomise">Randomise</button>
@@ -100,43 +76,6 @@
 				<button id="buttonCapture" class="button button--capture">
 					<span class="button__icon--not-recording"></span> Record
 				</button>
-			</div>
-		</div>
-	</div>
-
-	<div id="help-menu-open" class="help__open">
-		?
-	</div>
-
-	<div id="help-menu" class="help">
-		<h2 class="menu__title">What's going on here?</h2>
-
-		<div id="help-menu-close" class="help-menu__close">
-			<svg class="help-menu__close-svg" version="1.1" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-				<line x1="30%" y1="30%" x2="70%" y2="70%" stroke-width="5" stroke="white" stroke-linecap="round"></line>
-				<line x1="30%" y1="70%" x2="70%" y2="30%" stroke-width="5" stroke="white" stroke-linecap="round"></line>
-			</svg>
-		</div>
-
-		<hr>
-		<p class="help__text">We are plotting the trajectories of points obeying the following equation:</p>
-		<div class="ode-equation">
-			<div class="ode-equation__diff">
-				<p>dy</p>
-				<hr>
-				<p>dx</p>
-			</div>
-			<div class="ode-equation__equals">
-				<p>=</p>
-			</div>
-			<div class="ode-equation__expressions">
-				<div class="ode-equation__expression">
-					<p class="ode-equation__text">1x + 0y</p>
-				</div>
-				<hr>
-				<div class="ode-equation__expression">
-					<p class="ode-equation__text">0x + 1y</p>
-				</div>
 			</div>
 		</div>
 	</div>
