@@ -21,6 +21,13 @@ class Equation {
             this.setCoefficient(i, this.originalCoefficients[i]);
         }
     }
+
+    randomize(range) {
+        for (let i = 0; i < this.coefficients.length; i++) {
+            const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
+            this.setCoefficient(i, randomCoefficient);
+        }
+    }
 }
 
 export default Equation;

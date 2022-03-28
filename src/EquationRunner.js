@@ -11,13 +11,6 @@ class EquationRunner {
         this.animationId = null
     }
 
-    randomiseCoefficients(range) {
-        for (let i = 0; i < this.equation.coefficients.length; i++) {
-            const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
-            this.equation.setCoefficient(i, randomCoefficient);
-        }
-    }
-
     reset() {
         this.equation.reset();
         this.particlePlotter.clear();

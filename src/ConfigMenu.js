@@ -31,7 +31,6 @@ class ConfigMenu {
         this.particleQuantityInput = document.getElementById("settings-particle-quantity");
         this.particleSizeInput = document.getElementById("settings-particle-size");
         this.particleTrailInput = document.getElementById("settings-particle-trail");
-        this.randomiseButton = document.getElementById("buttonRandomise");
         this.recordButton = new RecordButton(
             document.getElementById('buttonCapture')
         );
@@ -111,11 +110,6 @@ class ConfigMenu {
         this.openButton.addEventListener('click', this.handleOpen.bind(this));
         this.closeButton.addEventListener('click', this.handleClose.bind(this));
         this.htmlElement.addEventListener('animationend', this.handleAnimationEnd.bind(this));
-
-        this.randomiseButton.onclick = () => {
-            this.equationRunner.randomiseCoefficients(2);
-            this.equationUI.update();
-        }
 
         this.particleQuantityInput.onchange = (event) => {
             this.updateParticleQuantity(event.target.value);

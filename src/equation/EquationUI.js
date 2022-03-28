@@ -4,6 +4,7 @@ class EquationUI {
         this.coefficientElements = document.querySelectorAll(".equation__coefficient");
         this.coefficientsIncrementers = document.querySelectorAll(".equation__coefficient-inc");
         this.coefficientsDecrementers = document.querySelectorAll(".equation__coefficient-dec");
+        this.equationRandomizer = document.getElementById('button-randomise');
         this.registerEventListeners();
     }
 
@@ -17,6 +18,11 @@ class EquationUI {
         this.equation.incrementCoefficient(index);
         this.coefficientElements[index].innerText = this.equation.coefficients[index];
         console.log(this.coefficients);
+    }
+
+    handleRandomize() {
+        this.equation.randomize(2);
+        this.update();
     }
 
     update() {
@@ -36,6 +42,8 @@ class EquationUI {
                 this.handleDecrement(index);
             });
         })
+
+        this.equationRandomizer.addEventListener('click', this.handleRandomize.bind(this));
     }
 }
 
