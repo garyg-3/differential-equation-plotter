@@ -47,7 +47,10 @@
     line-height: 0;
     font-size: 0.7em;
     opacity: 0;
+
     cursor: pointer;
+    user-select: none;
+
     transition: all .4s;
 }
 

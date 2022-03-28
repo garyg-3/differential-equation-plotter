@@ -14,8 +14,9 @@ const fadeInAnimation = [
 ];
 
 class ConfigMenu {
-    constructor(canvas) {
+    constructor(canvas, equationRunner) {
         this.canvas = canvas;
+        this.equationRunner = equationRunner;
         this.openButton = document.getElementById('config-menu-open');
         this.closeButton = document.getElementById('config-menu-close');
         this.htmlElement = document.getElementById('config-menu');
@@ -139,11 +140,11 @@ class ConfigMenu {
         }
 
         this.runButton.onclick = () => {
-            DEPlotter.run();
+            this.equationRunner.run();
         }
     
         this.stopButton.onclick = () => {
-            DEPlotter.stop();
+            this.equationRunner.stop();
         }
     
         this.resetButton.onclick = () => {
