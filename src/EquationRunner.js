@@ -1,8 +1,26 @@
+import ParticleUpdater from "./ParticleUpdater.js";
+import ParticlePlotter from "./ParticlePlotter.js";
+
 class EquationRunner {
-    constructor(particleUpdater, particlePlotter) {
-        this.particleUpdater = particleUpdater;
-        this.particlePlotter = particlePlotter;
+    constructor(equation, particles, canvas) {
+        this.equation = equation;
+        this.particles = particles;
+        this.canvas = canvas;
+        this.particleUpdater = new ParticleUpdater(particles, equation);
+        this.particlePlotter = new ParticlePlotter(particles, canvas);
         this.animationId = null
+    }
+
+    randomiseCoefficients(range) {
+        for (let i = 0; i < this.equation.coefficients.length; i++) {
+            const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
+            this.equation.setCoefficient(i, randomCoefficient);
+        }
+    }
+
+    reset() {
+        this.equation.reset();
+        this.particlePlotter.clear();
     }
 
     step() {

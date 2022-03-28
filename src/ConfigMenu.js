@@ -14,9 +14,10 @@ const fadeInAnimation = [
 ];
 
 class ConfigMenu {
-    constructor(canvas, equationRunner) {
+    constructor(canvas, equationRunner, equationUI) {
         this.canvas = canvas;
         this.equationRunner = equationRunner;
+        this.equationUI = equationUI;
         this.openButton = document.getElementById('config-menu-open');
         this.closeButton = document.getElementById('config-menu-close');
         this.htmlElement = document.getElementById('config-menu');
@@ -91,19 +92,8 @@ class ConfigMenu {
         });
 
         this.randomiseButton.onclick = () => {
-            this.canvas.reset();
-            const coefficients = DEPlotter.setRandomCoefficients(2);
-            // this.setCoefficientInputValues(coefficients);
-            // this.coefficientInputs[0].onchange(); // Not being called when changing the parameters in JS
-            DEPlotter.clearParticles();
-            DEPlotter.addParticles(
-                Particle.getRandom(
-                    Number(this.particleQuantityInput.value),
-                    this.canvas.getMaxDimension(),
-                    Number(this.particleSizeInput.value)
-                )
-            );
-            DEPlotter.run();
+            this.equationRunner.randomiseCoefficients(2);
+            this.equationUI.update();
         }
 
         this.particleSizeInput.onchange = (event) => {
@@ -148,23 +138,9 @@ class ConfigMenu {
         }
     
         this.resetButton.onclick = () => {
-            this.canvas.reset();
+            this.equationRunner.reset();
+                    
             this.particleTrailInput.value = this.canvas.transparency = 0.1;
-            DEPlotter.clearParticles();
-            DEPlotter.addParticles(
-                Particle.getRandom(
-                    this.defaultParticleQuantity,
-                    this.canvas.getMaxDimension(),
-                    this.defaultParticleSize
-                )
-            );
-            const defaultCoefficients = [1, 0, 0, -1];
-            defaultCoefficients.forEach((coeff, index) => {
-                this.coefficientInputs[index].value = coeff;
-            });
-            DEPlotter.setEquationCoefficients(defaultCoefficients);
-            DEPlotter.run();
-    
             this.particleSizeInput.value = this.defaultParticleSize;
             this.particleQuantityInput.value = this.defaultParticleQuantity;
             this.particleTrailInput.value = this.defaultParticleTrail;

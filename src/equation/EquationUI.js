@@ -19,6 +19,12 @@ class EquationUI {
         console.log(this.coefficients);
     }
 
+    update() {
+        this.coefficientElements.forEach((element, index) => {
+            element.innerText = this.equation.coefficients[index];
+        })
+    }
+
     registerEventListeners() {
         this.coefficientsIncrementers.forEach((element, index) => {
             element.addEventListener('click', () => {

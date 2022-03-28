@@ -7,7 +7,7 @@ class ParticleUpdater {
         this.timeScale = 200;
         this.maxDisplacement = 1000;
         this.minDisplacement = 2;
-        this.spawnRange = 500;
+        this.spawnRange = 1000;
     }
 
     randomiseParticle = (particle, range) => {

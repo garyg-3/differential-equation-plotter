@@ -11,6 +11,10 @@ class ParticlePlotter {
             particle.draw(this.context);
         })
     }
+
+    clear() {
+        this.canvas.reset();
+    }
 }
 
 export default ParticlePlotter;
