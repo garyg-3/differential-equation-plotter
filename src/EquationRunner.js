@@ -31,6 +31,26 @@ class EquationRunner {
         }
     }
 
+    updateParticleReference(newParticles) {
+        this.particleUpdater.particles = newParticles;
+        this.particlePlotter.particles = newParticles;
+    }
+
+    addParticle(newParticle) {
+        this.particles.push(newParticle);
+        this.updateParticleReference(this.particles);
+    }
+
+    addParticles(newParticles) {
+        this.particles.push(...newParticles);
+        this.updateParticleReference(this.particles);
+    }
+
+    clearParticles() {
+        this.particles = [];
+        this.updateParticleReference(this.particles);
+    }
+
     run() {
         this.animationId = requestAnimationFrame(this.step.bind(this));
     }

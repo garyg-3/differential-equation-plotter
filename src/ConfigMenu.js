@@ -18,13 +18,16 @@ class ConfigMenu {
         this.canvas = canvas;
         this.equationRunner = equationRunner;
         this.equationUI = equationUI;
+
         this.openButton = document.getElementById('config-menu-open');
         this.closeButton = document.getElementById('config-menu-close');
+
         this.htmlElement = document.getElementById('config-menu');
+
         this.runButton = document.getElementById("buttonRun");
         this.resetButton = document.getElementById("buttonReset");
         this.stopButton = document.getElementById("buttonStop");
-        this.coefficientInputs = [...document.querySelectorAll('[name^="coefficient"]')];
+
         this.particleQuantityInput = document.getElementById("settings-particle-quantity");
         this.particleSizeInput = document.getElementById("settings-particle-size");
         this.particleTrailInput = document.getElementById("settings-particle-trail");
@@ -78,55 +81,53 @@ class ConfigMenu {
         }
     }
 
+    updateParticleSize(size) {
+        this.equationRunner.particles.forEach(particle => {
+            particle.radius = size;
+        })
+    }
+
+    updateParticleQuantity(newQuantity) {
+        const particles = this.equationRunner.particles;
+        const numberOfParticles = particles.length;
+
+        if (newQuantity < numberOfParticles) {
+            const truncatedParticles = particles.slice(0, newQuantity - 1);
+            this.equationRunner.clearParticles();
+            this.equationRunner.addParticles(truncatedParticles);
+        } else {
+            const difference = newQuantity - numberOfParticles;
+            this.equationRunner.addParticles(
+                Particle.getRandom(
+                    difference,
+                    this.canvas.getMaxDimension(),
+                    Number(this.particleSizeInput.value)
+                )
+            );
+        }
+    }
+
     registerEventListeners() {
         this.openButton.addEventListener('click', this.handleOpen.bind(this));
         this.closeButton.addEventListener('click', this.handleClose.bind(this));
         this.htmlElement.addEventListener('animationend', this.handleAnimationEnd.bind(this));
-
-        this.coefficientInputs.forEach((coeff, index) => {
-            coeff.onchange = () => {
-                const coefficients = DEPlotter.getEquationCoefficients();
-                coefficients[index] = Number(coeff.value);
-                DEPlotter.setEquationCoefficients(coefficients);
-            }
-        });
 
         this.randomiseButton.onclick = () => {
             this.equationRunner.randomiseCoefficients(2);
             this.equationUI.update();
         }
 
+        this.particleQuantityInput.onchange = (event) => {
+            this.updateParticleQuantity(event.target.value);
+            console.log(this.equationRunner.particles);
+        }
+
         this.particleSizeInput.onchange = (event) => {
-            const particles = DEPlotter.getParticles();
-            for(let particle of particles) particle.radius = event.target.value;
+            this.updateParticleSize(event.target.value);
         }
     
         this.particleTrailInput.onchange = (event) => {
             this.canvas.transparency = 1 - Number(event.target.value);
-        }
-    
-        this.particleQuantityInput.onchange = (event) => {
-            // Check number of particles
-            const particles = DEPlotter.getParticles();
-            const numberOfParticles = particles.length;
-            const newQuantity = Number(event.target.value);
-    
-            if (newQuantity < numberOfParticles) {
-                const truncatedParticles = particles.slice(0, newQuantity - 1);
-                DEPlotter.clearParticles();
-                DEPlotter.addParticles(truncatedParticles);
-            } else {
-                const difference = newQuantity - numberOfParticles;
-                DEPlotter.addParticles(
-                    Particle.getRandom(
-                        difference,
-                        this.canvas.getMaxDimension(),
-                        Number(this.particleSizeInput.value)
-                    )
-                );
-            }
-
-            console.log(DEPlotter.getParticles());
         }
 
         this.runButton.onclick = () => {
@@ -144,6 +145,8 @@ class ConfigMenu {
             this.particleSizeInput.value = this.defaultParticleSize;
             this.particleQuantityInput.value = this.defaultParticleQuantity;
             this.particleTrailInput.value = this.defaultParticleTrail;
+            this.updateParticleQuantity(this.defaultParticleQuantity);
+            this.updateParticleSize(this.defaultParticleSize);
         }
     }
 }

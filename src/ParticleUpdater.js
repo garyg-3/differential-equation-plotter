@@ -58,36 +58,6 @@ class ParticleUpdater {
         this.particles.forEach(particle => this.updateParticle(particle));
     }
 
-    setEquationCoefficients(newCoefficients) {
-        equationCoefficients = newCoefficients;
-    }
-
-    setRandomCoefficients(range) {
-        const coefficients = Array(4).fill(0);
-        for (let i = 0; i < coefficients.length; i++) {
-            const randomCoefficient = Math.floor(range * (2*Math.random() - 1));
-            coefficients[i] = randomCoefficient;
-        }
-        setEquationCoefficients(coefficients);
-        return coefficients;
-    }
-
-    addParticle(newParticle) {
-        this.particles.push(newParticle);
-    }
-
-    addParticles(newParticles) {
-        this.particles.push(...newParticles);
-    }
-
-    clearParticles() {
-        this.particles = [];
-    }
-
-    getParticles() {
-        return particles;
-    }
-
     setMaxDisplacement(displacement) {
         this.maxDisplacement = displacement;
     }
