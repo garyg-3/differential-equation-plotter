@@ -1,0 +1,13 @@
+@keyframes slowBlink {
+    0% {
+        background-color: red;
+    }
+
+    50% {
+        background-color: darkred;
+    }
+
+    100% {
+        background-color: red;
+    }
+}

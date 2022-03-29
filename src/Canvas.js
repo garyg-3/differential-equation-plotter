@@ -9,7 +9,8 @@ class Canvas {
         this.context = this.element.getContext("2d");
         this.transparency = 0.1;
         this.resize();
-        this.resizeObserver = new ResizeObserver(this.resize.bind(this)).observe(this.element);
+        this.resizeObserver = new ResizeObserver(this.resize.bind(this));
+        this.resizeObserver.observe(this.element);
         this.setupPosition();
     }
 

@@ -2,6 +2,7 @@ import ParticleUpdater from "./ParticleUpdater.js";
 import ParticlePlotter from "./ParticlePlotter.js";
 
 class EquationRunner {
+    // TODO: reset button after stop breaks simulation
     constructor(equation, particles, canvas) {
         this.equation = equation;
         this.particles = particles;

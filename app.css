@@ -1,0 +1,311 @@
+@keyframes slowBlink {
+  0% {
+    background-color: red;
+  }
+  50% {
+    background-color: darkred;
+  }
+  100% {
+    background-color: red;
+  }
+}
+/*
+0 - 600px:      Phone
+600px - 900px:  Tablet portrait
+900px - 1200px: Tablet Landscape
+[1200 - 1800]: is where our normal style applies
+1800px +:       Big desktop
+
+*/
+/*
+$breakpoint argument choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+}
+@media (max-width: 72em) {
+  html {
+    font-size: 100%;
+  }
+}
+@media (max-width: 56.25em) {
+  html {
+    font-size: 100%;
+  }
+}
+@media (max-width: 37.5em) {
+  html {
+    font-size: 90%;
+  }
+}
+@media (min-width: 112.5em) {
+  html {
+    font-size: 90%;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  background-color: black;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  overflow: hidden;
+}
+
+#canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}
+
+.controls__buttons-wrapper {
+  width: 100%;
+}
+
+.button {
+  background-color: #040404;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.3rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.4s ease-out;
+}
+.button:hover {
+  background-color: white;
+  color: black;
+}
+.button--capture {
+  background-color: #383838;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.button--capture:hover {
+  background-color: #969696;
+}
+.button--capture:hover > .button__icon--not-recording {
+  background-color: red;
+}
+.button--capture[recording] {
+  background-color: #E04740;
+}
+.button--capture[recording] > .button__icon--not-recording {
+  animation: slowBlink 2s infinite;
+}
+.button__icon--not-recording {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: grey;
+}
+
+.equation__ui {
+  position: absolute;
+  bottom: 0;
+  margin: 0.5rem;
+  font-size: 200%;
+}
+@media (max-width: 72em) {
+  .equation__ui {
+    font-size: 206.25%;
+  }
+}
+@media (max-width: 56.25em) {
+  .equation__ui {
+    font-size: 206.25%;
+  }
+}
+@media (max-width: 37.5em) {
+  .equation__ui {
+    font-size: 135.5%;
+  }
+}
+
+.equation__ui-wrapper {
+  position: relative;
+}
+
+.equation__shuffle {
+  position: absolute;
+  left: 100%;
+  cursor: pointer;
+  bottom: 38px;
+  top: 50%;
+  width: 35px;
+  transform: translateY(-50%);
+  transition: transform 0.2s;
+}
+.equation__shuffle:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+@media (max-width: 37.5em) {
+  .equation__shuffle {
+    width: 30px;
+  }
+}
+
+.equation {
+  display: flex;
+  align-items: center;
+  color: white;
+  flex: 1;
+  margin-right: 10px;
+}
+.equation__input {
+  width: 30px;
+}
+.equation__equals {
+  margin: 0 10px;
+}
+.equation__expression {
+  display: flex;
+  align-items: center;
+}
+.equation__text {
+  margin: 0;
+  margin: 20px 0;
+}
+@media (max-width: 37.5em) {
+  .equation__text {
+    margin: 10px 0;
+  }
+}
+.equation__button-wrapper {
+  text-align: center;
+}
+.equation__coefficient-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.equation__coefficient:hover ~ .equation__coefficient-inc {
+  opacity: 1;
+}
+.equation__coefficient:hover ~ .equation__coefficient-dec {
+  opacity: 1;
+}
+.equation__coefficient-inc, .equation__coefficient-dec {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-style: normal;
+  line-height: 0;
+  opacity: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.4s;
+}
+.equation__coefficient-inc:hover, .equation__coefficient-dec:hover {
+  opacity: 1;
+  font-weight: bold;
+}
+@media (max-width: 72em) {
+  .equation__coefficient-inc, .equation__coefficient-dec {
+    opacity: 1;
+  }
+}
+.equation__coefficient-inc {
+  bottom: 100%;
+}
+@media (max-width: 72em) {
+  .equation__coefficient-inc {
+    margin-bottom: 4px;
+  }
+}
+.equation__coefficient-dec {
+  top: 100%;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 10px;
+  border-radius: 10px;
+  display: none;
+  padding: 30px;
+  transition: all 1s;
+}
+.menu__title {
+  text-align: center;
+  margin-top: 0;
+}
+.menu__open {
+  display: grid;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  place-items: center;
+  transition: transform 0.2s ease-out;
+}
+.menu__open:hover {
+  transform: scale(1.1);
+}
+.menu__open-icon {
+  height: 50px;
+  width: 50px;
+  position: relative;
+}
+.menu__close-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.menu__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  background-color: black;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+.menu__close:hover {
+  transform: scale(1.1);
+}
+.menu__settings-particles {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.menu__settings-particles-title {
+  margin-bottom: 0;
+}
+.menu__settings-field {
+  display: flex;
+}
+.menu__settings-field-label {
+  flex: 0 0 40%;
+  font-weight: bold;
+}
+.menu__settings-field-input {
+  flex: 1;
+}
+.menu__controls {
+  text-align: center;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,89 @@
+.menu {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(255, 255, 255, 0.5);
+	margin: 10px;
+	border-radius: 10px;
+	display: none;
+    padding: 30px;
+    transition: all 1s;
+
+    &__title {
+        text-align: center;
+        margin-top: 0;    
+    }
+
+    &__open {
+        display: grid;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.5);
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        place-items: center;
+        transition: transform .2s ease-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &__open-icon {
+        height: 50px;
+        width: 50px;
+        position: relative;
+    }
+
+    &__close-svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+        background-color: black;
+        border-radius: 50%;
+        transition: transform .3s;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    &__settings-particles {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    &__settings-particles-title {
+        margin-bottom: 0;
+    }
+
+    &__settings-field {
+        display: flex;
+    }
+
+    &__settings-field-label {
+        flex: 0 0 40%;
+        font-weight: bold;
+    }
+
+    &__settings-field-input {
+        flex: 1;
+    }
+
+    &__controls {
+        text-align: center;
+	    margin-bottom: 20px;
+    }
+}

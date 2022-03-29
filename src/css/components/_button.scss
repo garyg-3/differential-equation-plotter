@@ -1,0 +1,52 @@
+.controls__buttons-wrapper {
+    width: 100%;
+}
+
+.button {
+    background-color: #040404;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: .6rem 1.3rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color .4s ease-out;
+
+    &:hover {
+        background-color: white;
+        color: black;
+    }
+
+    &--capture {
+        background-color: #383838;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        &:hover {
+            background-color: #969696;
+
+            & > .button__icon--not-recording {
+                background-color: red;
+            }
+        }
+
+        &[recording] {
+            background-color: #E04740;
+
+            & > .button__icon--not-recording {
+                animation: slowBlink 2s infinite;
+            }
+        }
+    }
+
+    &__icon--not-recording {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        background-color: grey;
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "prod": "node compile-sass.js"
+  },
+  "devDependencies": {
+    "sass": "^1.49.9"
+  }
+}
